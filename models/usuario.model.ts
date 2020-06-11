@@ -1,5 +1,6 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import bycrypt from 'bcrypt';
+import { IUsuario } from '../interfaces/usuario.interface';
 
 const usuarioSchema = new Schema({
 
@@ -21,20 +22,11 @@ const usuarioSchema = new Schema({
         required: [true, 'La contraseña es necesaria']
     }
 
-});
+}, {timestamps: true});
 
 usuarioSchema.method('compararPassword', function( password: string = ''): boolean {
     if( bycrypt.compareSync( password, this.password) ) return true;
     else return false
 });
 
-interface IUsuario extends Document {
-    avatar?: string;
-    email: string;
-    nombre: string;
-    password: string;
-
-    compararPassword( password: string): boolean;
-};
-
-export const Usuario = model<IUsuario>('Usuario', usuarioSchema);
+export const Usuario = model<IUsuario>('Usuarios', usuarioSchema);

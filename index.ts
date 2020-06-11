@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import fileUpload from 'express-fileupload'
 import Server from './classes/server';
-import userRoutes from './routes/usuario';
+import userRoutes from './routes/usuario.routes';
+import postRoutes from './routes/post.routes';
 
 const server = new Server();
 
@@ -11,7 +13,13 @@ server.app.use(bodyParser.urlencoded({
 }));
 server.app.use(bodyParser.json());
 
+// File Upload
+server.app.use( fileUpload() );
+// Línea de abajo resuelve error files 0bytes
+// server.app.use( fileUpload({ useTempFiles: true}) );
+
 // Rutas
+server.app.use( '/post', postRoutes );
 server.app.use( '/user', userRoutes );
 
 // Database
