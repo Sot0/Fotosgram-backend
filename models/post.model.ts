@@ -3,9 +3,6 @@ import { IPost } from '../interfaces/post.interface';
 
 const postSchema = new Schema({
 
-    fechaCreacion: {
-        type: Date
-    },
     mensaje: {
         type: String,
         required: true
@@ -25,9 +22,9 @@ const postSchema = new Schema({
 
 }, {timestamps: true});
 
-postSchema.pre<IPost>('save', function( next ) {
-    this.fechaCreacion = new Date();
-    next();
-});
+// postSchema.pre<IPost>('save', function( next ) {
+//     this.fechaCreacion = new Date();
+//     next();
+// });
 
 export const Post = model<IPost>('Post', postSchema);
