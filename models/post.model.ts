@@ -12,7 +12,6 @@ const postSchema = new Schema({
     }],
     coords: {
         type: String,
-        required: true
     },
     usuario: {
         type: Schema.Types.ObjectId,
